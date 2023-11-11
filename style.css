@@ -30,5 +30,7 @@ body{
     
 }
 #carouselItem .text{
+    font-size: 200%;
+    text-shadow: 20px 0px 0px 0px black;
     color: white;
 }
