@@ -34,3 +34,13 @@ body{
     text-shadow: 20px 0px 0px 0px black;
     color: white;
 }
+.navbar-star-wars{
+   margin-top: 15px;
+   margin-bottom: 15px;
+}
+.explore-site{
+    box-sizing: border-box;
+    width: 100%;
+    height: 600px;
+    margin-top: 30px;
+}
