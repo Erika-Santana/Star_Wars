@@ -1,12 +1,13 @@
 /*------------------HOME CSS-----------------------*/
+*{
+    font-family: 'SF Distant Galaxy', sans-serif;
+}
 body{
     background-image: url(img/71e0326db82bd1e2156dcf572bc8778b.jpg);
     background-blend-mode: darken;
     background-repeat: repeat;
 }
-.container-fluid{
-    background-image:url(img/stars1.jpg);
-}
+
 .meubotao{
     color: #d2ab00;
     border-color: #fdce05;
@@ -21,26 +22,93 @@ body{
 .meubotao:hover:active{
     color:#d2ab00;
     background-color: black;
-    border-color: #d2ab00;
-    
+    border-color: #d2ab00;   
 }
 .navbar-star-wars{
     padding: 0px;
-    box-shadow:10px 5px black;
+
     
 }
 #carouselItem .text{
-    font-size: 200%;
     text-shadow: 20px 0px 0px 0px black;
-    color: white;
-}
-.navbar-star-wars{
-   margin-top: 15px;
-   margin-bottom: 15px;
+  
 }
 .explore-site{
     box-sizing: border-box;
     width: 100%;
     height: 600px;
     margin-top: 30px;
+}
+
+.footer{
+
+    display: flex;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color:black;
+    width: 100%;
+    height: 300px;
+    color: white;
+    flex-direction: column;
+    
+}
+
+.bg-body-tertiary{
+    --bs-bg-opacity: 0;
+}
+header{
+    background-image: url(img/Capa__1.png);
+    background-position: center;
+    background-size: cover;
+    height: 200vh;
+}
+
+body{
+    position: absolute;
+}
+#carouselExampleDark{
+    position: relative;
+    top: -600px;
+    width: 70%;
+    left: 15%;
+    box-shadow: 8px 25px 65px 61px
+    #0067b3;
+}
+
+.text{
+    font-family: 'Star Wars', sans-serif;
+    font-size: 25px;
+    color: #ffe961;  
+    font-weight: bold;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
+
+}
+
+.borda-imagem{
+    border: 15px solid black;
+
+}
+#carouselExampleDarkSecond{
+    top: -550px;
+}
+
+.nav-link{
+    font-size: 20px;
+    color: black;
+    text-shadow: 2px 2px 2px #FDCE05;
+    margin-right: 15px;
+}
+
+.footer_container{
+    align-items: center;
+}
+.footer_geral{
+    display: flex;  
+}
+.simbolo_footer{
+    margin: 50px;
+}
+.redes-sociais{
+    align-items: center;
+    justify-content: center;
 }
