@@ -68,6 +68,31 @@ header{
     background-size: cover;
     height: 200vh;
 }
+
+.header_veiculo{
+    background-image: url(img/1305184.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 200vh;
+}
+.header_planeta{
+    background-image: url(img/1274969.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 200vh;
+}
+.header_naves{
+    background-image: url(img/12066.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 200vh;
+}
+.header_especies{
+    background-image: url(img/377754.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 200vh;
+}
 body{
     position: absolute;
 }
@@ -81,12 +106,11 @@ body{
 }
 
 .text{
-    font-family: 'Star Wars', sans-serif;
+    font-family: 'SF Distant Galaxy', sans-serif;
     font-size: 25px;
     color: #ffe961;  
     font-weight: bold;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
-
 }
 
 .borda-imagem{
