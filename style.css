@@ -62,7 +62,12 @@ header{
     background-size: cover;
     height: 200vh;
 }
-
+.header_personagem{
+    background-image: url(img/11439\ \(1\).png);
+    background-position: center;
+    background-size: cover;
+    height: 200vh;
+}
 body{
     position: absolute;
 }
