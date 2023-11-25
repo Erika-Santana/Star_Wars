@@ -28,7 +28,7 @@ for (let index = 1; index <= 81; index++) {
     getUserData(index);
 }
 
-const container = document.querySelector("#cardsContainer");
+const container = document.querySelector(".container");
 
 async function getUserData(num) {
 
@@ -51,7 +51,7 @@ function createCard(personagem) {
     card.innerHTML = `
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title"></h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 <p>Altura: ${personagem.height} </p>
                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${personagem.name.replace(/\s/g, "")}">Go somewhere</a>
