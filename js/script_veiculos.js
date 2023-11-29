@@ -1,25 +1,94 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const vehicleContainer = document.getElementById("container-veiculos");
-    const urlBase = "https://swapi.dev/api/vehicles/?page=";
-    let number;
+async function getUserData(numero) {
+    let url = `https://swapi.dev/api/vehicles/${numero}`;
+    let response = await fetch(url);
 
-    for(number = 1; number <= 4; number++)
-    fetch(`${urlBase}${number}`)
-        .then(response => response.json())
-        .then(data => {
-            data.results.forEach(vehicle => {
-                const vehicleCard = document.createElement("div");
-                vehicleCard.className = "card";
+    if(response.ok) {
+        let jsonUser = await response.json();
+        console.log(jsonUser);
+        showUserData(jsonUser);
+    }
+    else {
+        console.log("ERRO API");
+    }
+};
 
-                vehicleCard.innerHTML = `
-                    <h2>${vehicle.model}</h2>
-                    <p><strong>Fabricante:</strong> ${vehicle.manufacturer}</p>
-                    <p><strong>Passageiros:</strong> ${vehicle.passengers}</p>
-                    <p><strong>Valor:</strong> ${vehicle.cost_in_credits} créditos</p>
-                `;
+function showUserData(name){
+    console.log(name.name);
+}
 
-                vehicleContainer.appendChild(vehicleCard);
-            });
-        })
-        .catch(error => console.error("Error fetching planets:", error));
-});
+
+for (let index = 1; index <= 100; index++) {
+    getUserData(index);
+}
+
+const container = document.querySelector(".container-veiculos");
+async function getUserData(num) {
+    let url = `https://swapi.dev/api/vehicles/${num}`;
+    let response = await fetch(url);
+
+    if(response.ok) {
+        let jsonUser = await response.json();
+        createCard(jsonUser);
+        createModal(jsonUser);
+    }   
+    else {
+        console.log("ERRO API");
+    }
+}
+
+function createCard(vehicle) {
+    let card = document.createElement('div');
+    card.innerHTML = `
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title"> ${vehicle.name} </h5>
+            <p> Saiba mais sobre esta nave, clicando no botão abaixo </p>
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${vehicle.name.replace(/\s/g, "")}"> --> </a>
+            </div>
+        </div>
+        <br>
+    `;
+    container.appendChild(card);
+}
+
+function createModal(vehicle) {
+    let modal = document.createElement('div');
+    modal.innerHTML = `
+    <div class="modal fade" id="${vehicle.name.replace(/\s/g, "")}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: rgb(20 19 19); border: 3px solid #fff; color: white;">
+                <div class="modal-body">
+                    <div class="card-container">
+                        <div class="card-content">
+                                <h2 class="vehicle-name">${vehicle.name}</h2>
+                                <p class="caracteristicas-vehicle modelo">
+                                    Modelo: ${vehicle.model} <span></span>
+                                </p>
+                                <p class="caracteristicas-vehicle valor">
+                                    Valor: ${vehicle.cost_in_credits} créditos <span></span>
+                                </p>
+                                <p class="caracteristicas-vehicle fabricante">
+                                    Fabricante: ${vehicle.manufacturer} <span></span>
+                                </p>
+                                <p class="caracteristicas-vehicle classificação">
+                                    Classificação: ${vehicle.vehicle_class} <span></span>
+                                </p>
+                                <p class="caracteristicas-vehicle tripulação">
+                                    Capacidade de tripulantes: ${vehicle.crew} <span></span>
+                                </p>
+                                <p class="caracteristicas-vehicle suprimentos">
+                                    Capacidade de suprimentos: ${vehicle.consumables} <span></span>
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `   
+    document.body.appendChild(modal);
+}
+
+for(let i = 1; i <= 2; i++) {
+    getUserData(i);
+}

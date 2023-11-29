@@ -1,59 +1,94 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const starshipContainer = document.getElementById("container-naves");
-    const urlBase = "https://swapi.dev/api/starships/?page=";
-    let number;
+async function getUserData(numero) {
+    let url = `https://swapi.dev/api/starships/${numero}`;
+    let response = await fetch(url);
 
-    for (number = 1; number <= 4; number++) {
-        fetch(`${urlBase}${number}`)
-            .then(response => response.json())
-            .then(data => {
-                data.results.forEach((starship, index) => {
-                    const starshipCard = document.createElement("div");
-                    starshipCard.className = "card";
-                    starshipCard.innerHTML = `
-                        <h2>${starship.name}</h2>
-                        <p><strong>Modelo:</strong> ${starship.model}</p>
-                        <p><strong>Manufaturador:</strong> ${starship.manufacturer}</p>
-                        <p><strong>Custo:</strong> ${starship.cost_in_credits} créditos</p>
-                        <p><strong>Tamanho:</strong> ${starship.length} m</p>
-                        <button onclick="openModal(${index})">Abrir modal</button>
-                    `;
-
-                    starshipContainer.appendChild(starshipCard);
-                });
-            })
-            .catch(error => console.error("Error fetching starships:", error));
+    if(response.ok) {
+        let jsonUser = await response.json();
+        console.log(jsonUser);
+        showUserData(jsonUser);
     }
-});
+    else {
+        console.log("ERRO API");
+    }
+};
 
-var modal = document.getElementById("myModal");
-
-function openModal(index) {
-    fetch(`https://swapi.dev/api/starships/${index + 2}/`)
-        .then(response => response.json())
-        .then(starship => {
-            document.getElementById("modalContent").innerHTML = `
-                <h2>${starship.name}</h2>
-                <p><strong>Modelo:</strong> ${starship.model}</p>
-                <p><strong>Manufaturador:</strong> ${starship.manufacturer}</p>
-                <p><strong>Custo:</strong> ${starship.cost_in_credits} créditos</p>
-                <p><strong>Tamanho:</strong> ${starship.length} m</p>
-            `;
-            modal.style.display = "block";
-        })
-        .catch(error => console.error("Error fetching starship details:", error));
+function showUserData(name){
+    console.log(name.name);
 }
 
-function closeModal() {
-    modal.style.display = "none";
+
+for (let index = 1; index <= 100; index++) {
+    getUserData(index);
 }
 
-var span = document.getElementsByClassName("close")[0];
-span.onclick = closeModal();
+const container = document.querySelector(".container-naves");
+async function getUserData(num) {
+    let url = `https://swapi.dev/api/starships/${num}`;
+    let response = await fetch(url);
 
-window.onclick = function (event) {
-    if (event.target == modal) {
-        closeModal();
+    if(response.ok) {
+        let jsonUser = await response.json();
+        createCard(jsonUser);
+        createModal(jsonUser);
+    }   
+    else {
+        console.log("ERRO API");
     }
 }
 
+function createCard(starship) {
+    let card = document.createElement('div');
+    card.innerHTML = `
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title"> ${starship.name} </h5>
+            <p> Saiba mais sobre esta nave, clicando no botão abaixo </p>
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${starship.name.replace(/\s/g, "")}"> --> </a>
+            </div>
+        </div>
+        <br>
+    `;
+    container.appendChild(card);
+}
+
+function createModal(starship) {
+    let modal = document.createElement('div');
+    modal.innerHTML = `
+    <div class="modal fade" id="${starship.name.replace(/\s/g, "")}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: rgb(20 19 19); border: 3px solid #fff; color: white;">
+                <div class="modal-body">
+                    <div class="card-container">
+                        <div class="card-content">
+                                <h2 class="starship-name">${starship.name}</h2>
+                                <p class="caracteristicas-starship modelo">
+                                    Modelo: ${starship.model} <span></span>
+                                </p>
+                                <p class="caracteristicas-starship valor">
+                                    Valor: ${starship.cost_in_credits} créditos <span></span>
+                                </p>
+                                <p class="caracteristicas-starship fabricante">
+                                    Fabricante: ${starship.manufacturer} <span></span>
+                                </p>
+                                <p class="caracteristicas-starship classificação">
+                                    Classificação: ${starship.starship_class} <span></span>
+                                </p>
+                                <p class="caracteristicas-starship tripulação">
+                                    Capacidade de tripulantes: ${starship.crew} <span></span>
+                                </p>
+                                <p class="caracteristicas-starship suprimentos">
+                                    Capacidade de suprimentos: ${starship.consumables} <span></span>
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `   
+    document.body.appendChild(modal);
+}
+
+for(let i = 1; i <= 2; i++) {
+    getUserData(i);
+}
