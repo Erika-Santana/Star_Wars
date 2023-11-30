@@ -68,32 +68,32 @@ header{
     background-image: url(img/11439\ \(1\).png);
     background-position: center;
     background-size: cover;
-    height: 200vh;
+    height: 150vh;
 }
 
 .header_veiculo{
     background-image: url(img/1305184.jpg);
     background-position: center;
     background-size: cover;
-    height: 200vh;
+    height: 150vh;
 }
 .header_planeta{
     background-image: url(img/1274969.jpg);
     background-position: center;
     background-size: cover;
-    height: 200vh;
+    height: 150vh;
 }
 .header_naves{
     background-image: url(img/12066.jpg);
     background-position: center;
     background-size: cover;
-    height: 200vh;
+    height: 150vh;
 }
 .header_especies{
     background-image: url(img/377754.jpg);
     background-position: center;
     background-size: cover;
-    height: 200vh;
+    height: 150vh;
 }
 body{
     position: absolute;

@@ -1,48 +1,27 @@
-async function getUserData(numero) {
-
-    let url = `https://swapi.dev/api/species/${numero}`;
-
-    let response = await fetch(url);
-    
-
-    if(response.ok) {
-        let jsonUser = await response.json();
-        console.log(jsonUser);
-        showUserData(jsonUser);
-    }
-    else {
-        console.log("ERRO API");
-    }
-
-
-};
-
-function showUserData(name){
-    console.log(name.name);
-    
-}
-
-
-for (let index = 1; index <= 100; index++) {
-  
-    getUserData(index);
-}
-
 const container = document.querySelector(".container");
+const MAX_RETRIES = 2; 
 
-async function getUserData(num) {
+async function getUserData(numero, retryCount = 0) {
+    try {
+        let url = `https://swapi.dev/api/species/${numero}/`;
+        let response = await fetch(url);
 
-    let url = `https://swapi.dev/api/species/${num}`;
-
-    let response = await fetch(url);
-
-    if(response.ok) {
-        let jsonUser = await response.json();
-        createCard(jsonUser);
-        createModal(jsonUser);
-    }   
-    else {
-        console.log("ERRO API");
+        if (response.ok) {
+            let jsonUser = await response.json();
+            console.log(jsonUser);
+            createCard(jsonUser);
+        } else {
+            console.log(`Erro na chamada da API para ${url}. Status: ${response.status}`);
+            if (retryCount < MAX_RETRIES) {
+                console.log(`Tentando novamente (${retryCount + 1}/${MAX_RETRIES})...`);
+                await new Promise(resolve => setTimeout(resolve, 1000)); 
+                return getUserData(numero, retryCount + 1);
+            } else {
+                console.log(`Número máximo de tentativas atingido para ${url}.`);
+            }
+        }
+    } catch (error) {
+        console.error("Erro durante chamada de API:", error);
     }
 }
 
@@ -56,12 +35,10 @@ function createCard(species) {
             </div>
         </div>
     `;
-
     container.appendChild(card);
 }
 
 function createModal(species) {
-
     let modal = document.createElement('div');
     modal.innerHTML = `
     
@@ -104,6 +81,26 @@ function createModal(species) {
     document.body.appendChild(modal);
 }
 
-for(let i = 1; i <= 2; i++) {
-    getUserData(i);
+
+const apiRequests = [];
+for (let index = 1; index <= 37; index++) {
+    apiRequests.push(getUserData(index));
+}
+
+Promise.all(apiRequests)
+    .then(() => {
+        console.log("Todas as chamadas de API foram concluídas.");
+    })
+    .catch(error => {
+        console.error("Erro durante chamadas de API:", error);
+    });
+
+function search() {
+    let input = document.getElementById('searchbar').value.toLowerCase();
+    let cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        let cardText = card.textContent.toLowerCase();
+        card.style.display = cardText.includes(input) ? 'block' : 'none';
+    });
 }

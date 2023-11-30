@@ -1,38 +1,27 @@
-async function getUserData(numero) {
-    let url = `https://swapi.dev/api/vehicles/${numero}`;
-    let response = await fetch(url);
-
-    if(response.ok) {
-        let jsonUser = await response.json();
-        console.log(jsonUser);
-        showUserData(jsonUser);
-    }
-    else {
-        console.log("ERRO API");
-    }
-};
-
-function showUserData(name){
-    console.log(name.name);
-}
-
-
-for (let index = 1; index <= 100; index++) {
-    getUserData(index);
-}
-
 const container = document.querySelector(".container");
-async function getUserData(num) {
-    let url = `https://swapi.dev/api/vehicles/${num}`;
-    let response = await fetch(url);
+const MAX_RETRIES = 2; 
 
-    if(response.ok) {
-        let jsonUser = await response.json();
-        createCard(jsonUser);
-        createModal(jsonUser);
-    }   
-    else {
-        console.log("ERRO API");
+async function getUserData(numero, retryCount = 0) {
+    try {
+        let url = `https://swapi.dev/api/vehicles/${numero}/`;
+        let response = await fetch(url);
+
+        if (response.ok) {
+            let jsonUser = await response.json();
+            console.log(jsonUser);
+            createCard(jsonUser);
+        } else {
+            console.log(`Erro na chamada da API para ${url}. Status: ${response.status}`);
+            if (retryCount < MAX_RETRIES) {
+                console.log(`Tentando novamente (${retryCount + 1}/${MAX_RETRIES})...`);
+                await new Promise(resolve => setTimeout(resolve, 1000)); 
+                return getUserData(numero, retryCount + 1);
+            } else {
+                console.log(`Número máximo de tentativas atingido para ${url}.`);
+            }
+        }
+    } catch (error) {
+        console.error("Erro durante chamada de API:", error);
     }
 }
 
@@ -72,7 +61,7 @@ function createModal(vehicle) {
                                     Classificação: ${vehicle.vehicle_class} <span></span>
                                 </p>
                                 <p class="caracteristicas-vehicle tripulação">
-                                    Capacidade de tripulantes: ${vehicle.crew} <span></span>
+                                    Capacidade de passageiros: ${vehicle.crew} <span></span>
                                 </p>
                                 <p class="caracteristicas-vehicle suprimentos">
                                     Capacidade de suprimentos: ${vehicle.consumables} <span></span>
@@ -87,6 +76,26 @@ function createModal(vehicle) {
     document.body.appendChild(modal);
 }
 
-for(let i = 1; i <= 2; i++) {
-    getUserData(i);
+
+const apiRequests = [];
+for (let index = 1; index <= 77; index++) {
+    apiRequests.push(getUserData(index));
+}
+
+Promise.all(apiRequests)
+    .then(() => {
+        console.log("Todas as chamadas de API foram concluídas.");
+    })
+    .catch(error => {
+        console.error("Erro durante chamadas de API:", error);
+    });
+
+function search() {
+    let input = document.getElementById('searchbar').value.toLowerCase();
+    let cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        let cardText = card.textContent.toLowerCase();
+        card.style.display = cardText.includes(input) ? 'block' : 'none';
+    });
 }
