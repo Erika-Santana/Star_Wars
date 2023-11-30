@@ -1,6 +1,6 @@
 async function getUserData(numero) {
 
-    let url = `https://swapi.dev/api/people/${numero}`;
+    let url = `https://swapi.dev/api/people/${numero}/`;
 
     let response = await fetch(url);
     
@@ -23,16 +23,16 @@ function showUserData(name){
 }
 
 
-for (let index = 1; index <= 100; index++) {
+for (let index = 1; index <= 81; index++) {
   
     getUserData(index);
 }
 
-const container = document.querySelector(".container-personagens");
+const container = document.querySelector(".container");
 
 async function getUserData(num) {
 
-    let url = `https://swapi.dev/api/people/${num}`;
+    let url = `https://swapi.dev/api/people/${num}/`;
 
     let response = await fetch(url);
 
@@ -49,14 +49,12 @@ async function getUserData(num) {
 function createCard(personagem) {
     let card = document.createElement('div');
     card.innerHTML = `
-        <div class="card" style="width: 18rem;">
+        <div class="card">
             <div class="card-body">
                 <h5 class="card-title"> ${personagem.name} </h5>
-                <p> Saiba mais sobre este personagem, clicando no botão abaixo </p>
-                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${personagem.name.replace(/\s/g, "")}"> --> </a>
+                <button href="#" class="botao" data-bs-toggle="modal" data-bs-target="#${personagem.name.replace(/\s/g, "")}"> --> </button>
             </div>
         </div>
-        <br>
     `;
 
     container.appendChild(card);

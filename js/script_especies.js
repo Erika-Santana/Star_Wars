@@ -28,7 +28,7 @@ for (let index = 1; index <= 100; index++) {
     getUserData(index);
 }
 
-const container = document.querySelector(".container-especies");
+const container = document.querySelector(".container");
 
 async function getUserData(num) {
 
@@ -49,14 +49,12 @@ async function getUserData(num) {
 function createCard(species) {
     let card = document.createElement('div');
     card.innerHTML = `
-        <div class="card" style="width: 18rem;">
+        <div class="card">
             <div class="card-body">
                 <h5 class="card-title"> ${species.name} </h5>
-                <p> Saiba mais sobre este species, clicando no botão abaixo </p>
-                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${species.name.replace(/\s/g, "")}"> --> </a>
+                <button href="#" class="botao" data-bs-toggle="modal" data-bs-target="#${species.name.replace(/\s/g, "")}"> --> </button>
             </div>
         </div>
-        <br>
     `;
 
     container.appendChild(card);

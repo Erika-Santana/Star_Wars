@@ -21,7 +21,7 @@ for (let index = 1; index <= 100; index++) {
     getUserData(index);
 }
 
-const container = document.querySelector(".container-planeta");
+const container = document.querySelector(".container");
 async function getUserData(num) {
     let url = `https://swapi.dev/api/planets/${num}`;
     let response = await fetch(url);
@@ -39,14 +39,12 @@ async function getUserData(num) {
 function createCard(planet) {
     let card = document.createElement('div');
     card.innerHTML = `
-        <div class="card" style="width: 18rem;">
+        <div class="card">
             <div class="card-body">
             <h5 class="card-title"> ${planet.name} </h5>
-            <p> Saiba mais sobre este planetas, clicando no botão abaixo </p>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${planet.name.replace(/\s/g, "")}"> --> </a>
+            <button href="#" class="botao" data-bs-toggle="modal" data-bs-target="#${planet.name.replace(/\s/g, "")}"> --> </button>
             </div>
         </div>
-        <br>
     `;
     container.appendChild(card);
 }

@@ -1,3 +1,5 @@
+//BUSCA DE APIS e geração de cards/modais
+
 async function getUserData(numero) {
     let url = `https://swapi.dev/api/starships/${numero}`;
     let response = await fetch(url);
@@ -21,7 +23,7 @@ for (let index = 1; index <= 100; index++) {
     getUserData(index);
 }
 
-const container = document.querySelector(".container-naves");
+const container = document.querySelector(".container");
 async function getUserData(num) {
     let url = `https://swapi.dev/api/starships/${num}`;
     let response = await fetch(url);
@@ -39,14 +41,12 @@ async function getUserData(num) {
 function createCard(starship) {
     let card = document.createElement('div');
     card.innerHTML = `
-        <div class="card" style="width: 18rem;">
+        <div class="card">
             <div class="card-body">
             <h5 class="card-title"> ${starship.name} </h5>
-            <p> Saiba mais sobre esta nave, clicando no botão abaixo </p>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${starship.name.replace(/\s/g, "")}"> --> </a>
+            <button href="#" class="botao" data-bs-toggle="modal" data-bs-target="#${starship.name.replace(/\s/g, "")}"> --> </button>
             </div>
         </div>
-        <br>
     `;
     container.appendChild(card);
 }
@@ -91,4 +91,21 @@ function createModal(starship) {
 
 for(let i = 1; i <= 2; i++) {
     getUserData(i);
+}
+
+//barra de busca funcional
+
+function search(){
+    let input = document.getElementById('searchbar').value;
+    input = input.toLowerCase();
+
+    let x = document.getElementsByClassName('card');
+
+    for(i = 0; i < x.length; i++){
+        if(!x[i].innerHTML.toLocaleLowerCase().includes(input)){
+            x[i].style.display= "none";
+        }else{
+            x[i].style.display= "list";
+        }
+    }
 }
