@@ -22,7 +22,6 @@ function createCard(films) {
         <div class="card filmes" style="width: 18rem; background-color:black; border: 1px solid #ccc; ">
         <img src="img/${films.title}.jpg" class="card-img-top">
             <div class="card-body">
-              
                 <h5 class="card-title">${films.title}</h5>
                 <p class="card-text"></p>
                 <button href="#" class="botao" data-bs-toggle="modal" data-bs-target="#${films.title.replace(/\s/g, "")}"> --> </button>
@@ -48,13 +47,13 @@ function createModal(films) {
                                       Titulo: ${films.title} 
                                   </p>
                                   <p class="caracteristicas-personagem peso">
-                                      Produtor: ${films.release_date} 
+                                      Data Lançamento: ${films.release_date} 
                                   </p>
                                   <p class="caracteristicas-personagem aniversario">
                                       Episódio ID: ${films.episode_id}
                                   </p>
                                   <p class="caracteristicas-personagem genero">
-                                      Diretor: ${films.episode_id} 
+                                      Diretor: ${films.director} 
                                   </p>
                           </div>
                       </div>
