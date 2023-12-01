@@ -124,7 +124,6 @@ body{
     font-family: 'SF Distant Galaxy', sans-serif;
     font-size: 25px;
     color: #ffe961;  
-    font-weight: bold;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
 }
 
@@ -270,4 +269,7 @@ transform: scale(40);
     color: black;
     background-color: #d2ab00;
     border-color: rgb(0, 0, 0);
+}
+.filmes{
+    height: 350px;
 }

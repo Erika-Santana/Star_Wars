@@ -8,8 +8,8 @@ async function getUserData(numero, retryCount = 0) {
 
         if (response.ok) {
             let jsonUser = await response.json();
-            console.log(jsonUser);
             createCard(jsonUser);
+            createModal(jsonUser);
         } else {
             console.log(`Erro na chamada da API para ${url}. Status: ${response.status}`);
             if (retryCount < MAX_RETRIES) {
@@ -24,6 +24,7 @@ async function getUserData(numero, retryCount = 0) {
         console.error("Erro durante chamada de API:", error);
     }
 }
+
 
 
 function createCard(planet) {
